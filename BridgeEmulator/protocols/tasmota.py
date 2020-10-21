@@ -23,7 +23,7 @@ def sendRequest(url, timeout=3):
 def discover(bridge_config, new_lights):
     logging.debug("tasmota: <discover> invoked!")
 
-    device_ips = check_output("nmap  " + getIpAddress() +"/24 -p80 --open -n | grep report | cut -d ' ' -f5", shell=True).decode('utf-8').rstrip("\n").split("\n")
+    device_ips = check_output("nmap  10.50.81.0/24 -p80 --open -n | grep report | cut -d ' ' -f5", shell=True).decode('utf-8').rstrip("\n").split("\n")
     del device_ips[-1] #delete last empty element in list
     logging.debug("IPS ARE COMMING NOW!!!! SDAFNIOAEKPGFLÖ")
     for ip in device_ips:
