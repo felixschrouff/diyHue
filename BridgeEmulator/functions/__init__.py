@@ -4,8 +4,22 @@ def nextFreeId(bridge_config, element):
         i += 1
     return str(i)
 
-# Define light defininitions for discovery features and adding device data to config
 light_types = {}
+#CUstom def
+light_types["Tasmota-RGB"] = {"type": "Extended color light", "swversion": "1.46.13_r26312", "manufacturername": "Tasmota"}
+light_types["Tasmota-RGB"]["state"] = {"on": False, "bri": 254, "hue": 0, "sat": 0, "xy": [0.0, 0.0], "alert": "none", "effect": "none", "colormode": "xy", "reachable": True}
+light_types["Tasmota-RGB"]["config"] = {"archetype": "sultanbulb", "function": "mixed", "direction": "omnidirectional"}
+
+light_types["Tasmota-Dimmable"] = {"type": "Dimmable light", "swversion": "1.46.13_r26312", "manufacturername": "Tasmota"}
+light_types["Tasmota-Dimmable"]["state"] = {"on": False, "bri": 254,"alert": "none", "reachable": True}
+light_types["Tasmota-Dimmable"]["config"] = {"archetype": "classicbulb", "function": "mixed", "direction": "omnidirectional"}
+
+light_types["Tasmota-Switch"] = {"type": "On/Off plug-in unit", "swversion": "V1.04.12", "manufacturername": "Tasmota"}
+light_types["Tasmota-Switch"]["state"] = {"on": False, "alert": "none", "reachable": True}
+
+
+# Define light defininitions for discovery features and adding device data to config
+
 light_types["Tasmota"] = {"type": "Extended color light", "swversion": "1.46.13_r26312"}
 light_types["Tasmota"]["state"] = {"on": False, "bri": 200, "hue": 0, "sat": 0, "xy": [0.0, 0.0], "alert": "none", "effect": "none", "colormode": "xy", "reachable": True}
 

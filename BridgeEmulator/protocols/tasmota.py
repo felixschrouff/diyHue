@@ -38,7 +38,7 @@ def discover(bridge_config, new_lights):
                     logging.debug ("tasmota: Hostname: " + device_data["StatusNET"]["Hostname"] )
                     logging.debug ("tasmota: Mac:      " + device_data["StatusNET"]["Mac"] )
 
-                    properties = {"rgb": True, "ct": False, "ip": ip, "name": device_data["StatusNET"]["Hostname"], "id": device_data["StatusNET"]["Mac"], "mac": device_data["StatusNET"]["Mac"]}
+                    properties = {"rgb": true, "ct": False, "ip": ip, "name": device_data["StatusNET"]["Hostname"], "id": device_data["StatusNET"]["Mac"], "mac": device_data["StatusNET"]["Mac"]}
                     device_exist = False
                     for light in bridge_config["lights_address"].keys():
                         if bridge_config["lights_address"][light]["protocol"] == "tasmota" and  bridge_config["lights_address"][light]["id"] == properties["id"]:
@@ -49,7 +49,9 @@ def discover(bridge_config, new_lights):
                     if (not device_exist):
                         light_name = "Tasmota id " + properties["id"][-8:] if properties["name"] == "" else properties["name"]
                         logging.debug("tasmota: Add Tasmota: " + properties["id"])
-                        modelid = "Tasmota"
+                        modelid = "Tasmota-Switch"
+                        modelid = "Tasmota-Dimmable" if "Dimmer" in device_data.StatusSTS
+                        modelid = "Tasmota-RGB" if "Color" in device_data.StatusSTS
                         new_light_id = nextFreeId(bridge_config, "lights")
                         bridge_config["lights"][new_light_id] = {"state": light_types[modelid]["state"], "type": light_types[modelid]["type"], "name": light_name, "uniqueid": "4a:e0:ad:7f:cf:" + str(random.randrange(0, 99)) + "-1", "modelid": modelid, "manufacturername": "Tasmota", "swversion": light_types[modelid]["swversion"]}
                         new_lights.update({new_light_id: {"name": light_name}})
